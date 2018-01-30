@@ -9,5 +9,5 @@ while True:
 	GPIO.output(PIN12, GPIO.LOW)
 	time.sleep(5000)
 	GPIO.output(PIN12, GPIO.HIGH)
-
+	time.sleep(5000)
 #GPIO.cleanup() #cleans up pins
