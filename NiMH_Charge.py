@@ -16,7 +16,7 @@ GPIO.setup(RELAY2, GPIO.OUT)
 GPIO.setup(RELAY3, GPIO.OUT)
 ADC.setup()
 
-while True:
+def relayOn():
 	print("Relay1 ON")
 	GPIO.output(RELAY1, GPIO.HIGH) 
 	time.sleep(2) #Wait 2 sec
@@ -24,8 +24,26 @@ while True:
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) 
 	print("Voltage: ")
 	print(voltage)
-	#print("adc_data: ")
-	#print(adc_data)
+
+def relayOff():
+	print("Relay1 OFF")
+	GPIO.output(RELAY1, GPIO.LOW) 
+	time.sleep(2) #Wait 2 sec
+	adc_data = ADC.read(ADC1)
+	voltage = (adc_data * 1.8*9)*(12.59/12.78) 
+	print("Voltage: ")
+	print(voltage)
+	
+#Main
+while True:
+	for i in range 50:
+		relayOn()
+		if i%2 == 0:
+			relayOff()
+	
+
+	
+	
 	
 #GPIO.cleanup() #cleans up pins
 
