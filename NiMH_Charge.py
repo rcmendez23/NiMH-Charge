@@ -24,7 +24,8 @@ while True:
 	voltage = adc_data * 1.8 #1.8V
 	#print("Voltage: ")
 	#print(voltage)
-	print("adc_data: " + adc_data)
+	print("adc_data: ")
+	print(adc_data)
 
 #GPIO.cleanup() #cleans up pins
 
