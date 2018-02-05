@@ -21,7 +21,7 @@ while True:
 	GPIO.output(RELAY1, GPIO.HIGH) 
 	time.sleep(2) #Wait 2 sec
 	adc_data = ADC.read(ADC1)
-	voltage = adc_data * 1.8*9 #1.8V
+	voltage = (adc_data * 1.8*9)*(12.78/12.59) 
 	print("Voltage: ")
 	print(voltage)
 	#print("adc_data: ")
