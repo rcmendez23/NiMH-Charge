@@ -8,8 +8,9 @@ RELAY1 = "P9_17" #GPIO4
 RELAY2 = "P9_11" #GPIO30
 RELAY3 = "P9_13" #GPIO31
 ADC1 = "P9_33" #AIN4
-adc_data = 0.00
+adc_data = 0.00 #raw adc pin data
 voltage = 0.00
+i = 0 #counter
 
 GPIO.setup(RELAY1, GPIO.OUT)
 GPIO.setup(RELAY2, GPIO.OUT)
@@ -36,7 +37,7 @@ def relayOff():
 	
 #Main
 while True:
-	for i in range 50:
+	for i in range(50):
 		relayOn()
 		if i%2 == 0:
 			relayOff()
