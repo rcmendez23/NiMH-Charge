@@ -21,11 +21,11 @@ while True:
 	GPIO.output(RELAY1, GPIO.HIGH) 
 	time.sleep(2) #Wait 2 sec
 	adc_data = ADC.read(ADC1)
-	voltage = adc_data * 1.8 #1.8V
-	#print("Voltage: ")
-	#print(voltage)
-	print("adc_data: ")
-	print(adc_data)
+	voltage = adc_data * 1.8*9 #1.8V
+	print("Voltage: ")
+	print(voltage)
+	#print("adc_data: ")
+	#print(adc_data)
 
 #GPIO.cleanup() #cleans up pins
 
