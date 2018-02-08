@@ -62,7 +62,7 @@ while True:
 	if voltage <= 10:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
-		print("Time Elapsed: " str(time_elapsed)) 
+		print("Time Elapsed: " + str(time_elapsed)) 
 		time_elapsed = timeit.timeit() #keep track of time elapsed
 		notification() #Send email notification
 		v_datafile.close() #close data file
