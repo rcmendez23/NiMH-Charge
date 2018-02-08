@@ -1,5 +1,6 @@
 #Program that determines when NiMH batteries have reached 10V.
 import Adafruit_BBIO.GPIO as GPIO
+import Adafruit_BBIO.ADC as ADC
 import timeit
 import time
 import smtplib
