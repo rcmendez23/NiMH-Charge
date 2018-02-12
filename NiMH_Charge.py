@@ -41,7 +41,7 @@ def process_Data():
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 	print("Voltage: " + str(voltage)) #print out voltage to user
-	v_datafile.write(voltage) #write voltages to data file
+	v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
 def notification():
@@ -54,8 +54,6 @@ def notification():
 	
 #----Main----#
 #Get user email and password
-	
-
 while True:
 	relayOn(RELAY1) #Turn on relay 1
 	time.sleep(5) #take voltage reading every 5s
@@ -67,7 +65,7 @@ while True:
 		time_elapsed = timeit.timeit() #keep track of time elapsed
 		notification() #Send email notification
 		v_datafile.close() #close data file
-		exit() #exit program
+	exit() #exit program
 
 #GPIO.cleanup() #cleans up pins
 
