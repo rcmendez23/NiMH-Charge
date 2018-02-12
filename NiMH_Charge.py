@@ -69,7 +69,7 @@ while True:
 		notification(time_elapsed) #Send email notification
 		v_datafile.close() #close data file
 		break
-	time.sleep(5) #take voltage reading every 5s
+	time.sleep(300) #take voltage reading every 5 minutes
 exit() #exit program
 #GPIO.cleanup() #cleans up pins
 
