@@ -13,7 +13,7 @@ ADC1 = "P9_33" #AIN4
 adc_data = 0.00 #raw adc pin data
 #global voltage = 0.00 #voltage of battery
 i = 0 #counter
-global time_elapsed = 0 #run time of program, how long battery takes to get to 10V
+global time_elapsed #run time of program, how long battery takes to get to 10V
 email = "nimh.charge@gmail.com" #email to send and recieve notification
 pwd = "bu0y$0Lar7"  
 
