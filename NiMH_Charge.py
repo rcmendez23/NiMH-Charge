@@ -44,7 +44,7 @@ def calc_Voltage():
 	#return voltage
 
 def write_Data(voltage):
-	#v_datafile.write(str(voltage)) #write voltages to data file
+	v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
 def notification(time_elapsed):
