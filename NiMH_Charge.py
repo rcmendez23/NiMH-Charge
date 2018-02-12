@@ -37,9 +37,10 @@ def relayOff(relay_num):
 	print("Relay1 OFF")
 	GPIO.output(relay_num, GPIO.LOW) 
 
-def process_Data(adc_data, voltage):
+def process_Data(voltage):
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
+	print("Voltage: " + str(voltage)) #print out voltage to user
 	#v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
@@ -55,8 +56,8 @@ def notification(time_elapsed):
 #Get user email and password
 while True:
 	relayOn(RELAY1) #Turn on relay 1
-	process_Data(adc_data, voltage) #compute voltage, print it, send it to text file
-	print("Voltage: " + str(voltage)) #print out voltage to user
+	process_Data(voltage) #compute voltage, print it, send it to text file
+
 	if voltage <= 10.0:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
