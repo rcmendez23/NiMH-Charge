@@ -40,7 +40,6 @@ def relayOff(relay_num):
 def process_Data(adc_data, voltage):
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
-	print("Voltage: " + str(voltage)) #print out voltage to user
 	#v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
@@ -58,6 +57,7 @@ while True:
 	relayOn(RELAY1) #Turn on relay 1
 	time.sleep(5) #take voltage reading every 5s
 	process_Data(adc_data, voltage) #compute voltage, print it, send it to text file
+	print("Voltage: " + str(voltage)) #print out voltage to user
 	if voltage <= 10:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
