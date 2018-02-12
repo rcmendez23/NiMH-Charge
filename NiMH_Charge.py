@@ -36,7 +36,7 @@ def relayOn(relay_num):
 def relayOff(relay_num):
 	print("Relay1 OFF")
 	GPIO.output(relay_num, GPIO.LOW) 
-def calc_Voltage()
+def calc_Voltage(voltage)
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	global voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 	#return voltage
