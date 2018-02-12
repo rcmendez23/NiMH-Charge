@@ -37,7 +37,7 @@ def relayOff(relay_num):
 	print("Relay1 OFF")
 	GPIO.output(relay_num, GPIO.LOW) 
 
-def process_Data():
+def process_Data(adc_data, voltage):
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 	print("Voltage: " + str(voltage)) #print out voltage to user
@@ -48,7 +48,7 @@ def notification():
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed"
+	msg = "NiMH Charge Program Completed. Time Elapsed: " + time_elapsed
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
@@ -57,7 +57,7 @@ def notification():
 while True:
 	relayOn(RELAY1) #Turn on relay 1
 	time.sleep(5) #take voltage reading every 5s
-	process_Data() #compute voltage, print it, send it to text file
+	process_Data(adc_data, voltage) #compute voltage, print it, send it to text file
 	if voltage <= 10:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
