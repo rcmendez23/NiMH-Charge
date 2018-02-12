@@ -41,10 +41,10 @@ def process_Data(adc_data, voltage):
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 	print("Voltage: " + str(voltage)) #print out voltage to user
-	v_datafile.write(str(voltage)) #write voltages to data file
+	#v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
-def notification():
+def notification(time_elapsed):
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
@@ -63,9 +63,9 @@ while True:
 		print("Relay OFF...Reached 10V")
 		print("Time Elapsed: " + str(time_elapsed)) 
 		time_elapsed = timeit.timeit() #keep track of time elapsed
-		notification() #Send email notification
+		notification(time_elapsed) #Send email notification
 		v_datafile.close() #close data file
-	exit() #exit program
+		exit() #exit program
 
 #GPIO.cleanup() #cleans up pins
 
