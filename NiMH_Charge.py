@@ -47,7 +47,7 @@ def notification(time_elapsed):
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed. Time Elapsed: " + time_elapsed
+	msg = "NiMH Charge Program Completed. Time Elapsed: " + str(time_elapsed)
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
@@ -55,17 +55,17 @@ def notification(time_elapsed):
 #Get user email and password
 while True:
 	relayOn(RELAY1) #Turn on relay 1
-	time.sleep(5) #take voltage reading every 5s
-	process_Data(adc_data, voltage) #compute voltage, print it, send it to text file
 	print("Voltage: " + str(voltage)) #print out voltage to user
-	if voltage <= 10:
+	process_Data(adc_data, voltage) #compute voltage, print it, send it to text file
+	if voltage <= 10.0:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
 		print("Time Elapsed: " + str(time_elapsed)) 
 		time_elapsed = timeit.timeit() #keep track of time elapsed
 		notification(time_elapsed) #Send email notification
 		v_datafile.close() #close data file
-		exit() #exit program
-
+		break
+	time.sleep(5) #take voltage reading every 5s
+exit() #exit program
 #GPIO.cleanup() #cleans up pins
 
