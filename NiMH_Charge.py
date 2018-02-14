@@ -51,7 +51,7 @@ def notification():
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed. Time Elapsed" # + str(time_elapsed)
+	msg = "NiMH Charge Program Completed. Time Elapsed:" # + str(time_elapsed)
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
