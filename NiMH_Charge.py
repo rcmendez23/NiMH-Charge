@@ -43,8 +43,8 @@ def calc_Voltage():
 	global voltage 
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 
-def write_Data(v_datafile):
-	path = os.system.join(srv, NiMH_Data, voltage_data.txt) #get file path
+def write_Data():
+	path = '/srv/NiMH_Data/voltage_data.txt' #os.system.join("srv","NiMH_Data", "voltage_data.txt") #get file path
 	v_datafile = open(path, "w") #open file to write
 	v_datafile.write(str(voltage)) #write voltages to data file
 
@@ -62,7 +62,7 @@ def notification(time_elapsed):
 while True:
 	relayOn(RELAY1) #Turn on relay 1
 	calc_Voltage() #compute voltage, print it, send it to text file
-	write_Data(v_datafile) #write data to voltage_data.txt
+	write_Data() #write data to voltage_data.txt
 	print("Voltage: " + str(voltage)) #print out voltage to user
 	if voltage <= 10.0:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
@@ -70,7 +70,7 @@ while True:
 		time_elapsed = timeit.timeit() #keep track of time elapsed
 		print("Time Elapsed: " + str(time_elapsed)) 
 		notification(time_elapsed) #Send email notification
-		v_datafile.close() #close data file
+		#v_datafile.close() #close data file
 		break
 	time.sleep(5) #take voltage reading every 5 minutes
 exit() #exit program
