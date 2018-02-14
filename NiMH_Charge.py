@@ -53,11 +53,15 @@ def notification(time_elapsed):
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec"
+	msg = MIMEMultipart()
+	msg['Subject'] = 'NiMH Charge Program Status' #subject of email
+	msg['From'] = email #sender's email address
+	msg['To'] = email #reciever email addr
+	msg.preamble = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec" #message of email
 	fp = open(path, 'rb') #get voltage data file
 	txtFile = MIMEText(fp.read()) #read file
 	msg.attach(txtFile) #attach file to email
-	server.sendmail(email, email, msg) #From, To, Body
+	server.sendmail(email, email, msg.as_string()) #From, To, Body
 	server.quit()
 	
 #----Main----#
