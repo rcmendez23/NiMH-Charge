@@ -4,7 +4,7 @@ import Adafruit_BBIO.ADC as ADC
 import timeit
 import time
 import smtplib #email
-import os
+from email.mime.text import MIMEText
 
 PIN12= "P9_12" #GPIO60
 RELAY1 = "P9_17" #GPIO4
@@ -53,7 +53,7 @@ def notification(time_elapsed):
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed. Time Elapsed: " # + str(time_elapsed)
+	msg = MIMEText("NiMH Charge Program Completed. Time Elapsed: ") # + str(time_elapsed)
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
