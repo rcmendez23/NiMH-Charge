@@ -3,7 +3,8 @@ import Adafruit_BBIO.GPIO as GPIO
 import Adafruit_BBIO.ADC as ADC
 import timeit
 import time
-import smtplib
+import smtplib #email
+import os
 
 PIN12= "P9_12" #GPIO60
 RELAY1 = "P9_17" #GPIO4
@@ -23,8 +24,7 @@ GPIO.setup(RELAY2, GPIO.OUT)
 GPIO.setup(RELAY3, GPIO.OUT)
 ADC.setup()
 
-#Open file to write	
-v_datafile = open("voltage_data.txt", "w") 
+
 
 #Functions
 #Turns relay of choice ON
@@ -37,13 +37,15 @@ def relayOff(relay_num):
 	print("Relay1 OFF")
 	GPIO.output(relay_num, GPIO.LOW) 
 
+#Calculate voltage
 def calc_Voltage():
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	global voltage 
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
-	#return voltage
 
 def write_Data(v_datafile):
+	path = os.system.join(srv, NiMH_Data, voltage_data.txt) #get file path
+	v_datafile = open(path, "w") #open file to write
 	v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
@@ -51,7 +53,7 @@ def notification(time_elapsed):
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed. Time Elapsed: "  + str(time_elapsed)
+	msg = "NiMH Charge Program Completed. Time Elapsed: " # + str(time_elapsed)
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
