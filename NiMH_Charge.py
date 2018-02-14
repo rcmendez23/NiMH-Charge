@@ -24,8 +24,6 @@ GPIO.setup(RELAY2, GPIO.OUT)
 GPIO.setup(RELAY3, GPIO.OUT)
 ADC.setup()
 
-
-
 #Functions
 #Turns relay of choice ON
 def relayOn(relay_num):
@@ -49,11 +47,11 @@ def write_Data():
 	v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
-def notification(time_elapsed):
+def notification():
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = MIMEText("NiMH Charge Program Completed. Time Elapsed: ") # + str(time_elapsed)
+	msg = "NiMH Charge Program Completed. Time Elapsed" # + str(time_elapsed)
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
@@ -69,7 +67,7 @@ while True:
 		print("Relay OFF...Reached 10V")
 		time_elapsed = timeit.timeit() #keep track of time elapsed
 		print("Time Elapsed: " + str(time_elapsed)) 
-		notification(time_elapsed) #Send email notification
+		notification() #Send email notification
 		#v_datafile.close() #close data file
 		break
 	time.sleep(5) #take voltage reading every 5 minutes
