@@ -5,6 +5,7 @@ import timeit
 import time
 import smtplib #email
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 PIN12= "P9_12" #GPIO60
 RELAY1 = "P9_17" #GPIO4
@@ -48,10 +49,14 @@ def write_Data():
 
 #Send Email	
 def notification(time_elapsed):
+	path = '/srv/NiMH_Data/voltage_data.txt' #path of data file
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.starttls()
 	server.login(email,pwd)
-	msg = "NiMH Charge Program Completed. Time Elapsed is" + str(time_elapsed)
+	msg = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec"
+	fp = open(path, 'rb') #get voltage data file
+	txtFile = MIMEText(fp.read()) #read file
+	msg.attach(txtFile) #attach file to email
 	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
