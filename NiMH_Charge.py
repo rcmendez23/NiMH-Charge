@@ -7,15 +7,14 @@ import smtplib #email
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-PIN12= "P9_12" #GPIO60
+PIN12 = "P9_12" #GPIO60
 RELAY1 = "P9_17" #GPIO4
 RELAY2 = "P9_11" #GPIO30
 RELAY3 = "P9_13" #GPIO31
 ADC1 = "P9_33" #AIN4
-#adc_data = 0.00 #raw adc pin data
-#global voltage = 0.00 #voltage of battery
-i = 0 #counter
+
 global time_elapsed #run time of program, how long battery takes to get to 10V
+global voltage 
 email = "nimh.charge@gmail.com" #email to send and recieve notification
 pwd = "bu0y$0Lar7"  
 
@@ -39,13 +38,12 @@ def relayOff(relay_num):
 #Calculate voltage
 def calc_Voltage():
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
-	global voltage 
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 
 def write_Data():
 	path = '/srv/NiMH_Data/voltage_data.txt' #os.system.join("srv","NiMH_Data", "voltage_data.txt") #get file path
 	v_datafile = open(path, "w") #open file to write
-	v_datafile.write(str(voltage)) #write voltages to data file
+	v_datafile.write(str(voltage)+"\n") #write voltages to data file
 
 #Send Email	
 def notification(time_elapsed):
@@ -80,6 +78,7 @@ while True:
 		#v_datafile.close() #close data file
 		break
 	time.sleep(5) #take voltage reading every 5 minutes
+relayOff(RELAY1)
 exit() #exit program
 #GPIO.cleanup() #cleans up pins
 
