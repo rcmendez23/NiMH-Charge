@@ -14,7 +14,7 @@ RELAY3 = "P9_13" #GPIO31
 ADC1 = "P9_33" #AIN4
 
 global time_elapsed #run time of program, how long battery takes to get to 10V
-global voltage 
+
 email = "nimh.charge@gmail.com" #email to send and recieve notification
 pwd = "bu0y$0Lar7"  
 
@@ -37,6 +37,7 @@ def relayOff(relay_num):
 
 #Calculate voltage
 def calc_Voltage():
+	global voltage 
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 
