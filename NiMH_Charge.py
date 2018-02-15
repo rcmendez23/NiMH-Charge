@@ -17,7 +17,8 @@ global time_elapsed #run time of program, how long battery takes to get to 10V
 
 email = "nimh.charge@gmail.com" #email to send and recieve notification
 pwd = "bu0y$0Lar7"  
-
+path = '/srv/NiMH_Data/voltage_data.txt' #os.system.join("srv","NiMH_Data", "voltage_data.txt") #get file path
+v_datafile = open(path, "w") #open file to write
 #Set up pins
 GPIO.setup(RELAY1, GPIO.OUT)
 GPIO.setup(RELAY2, GPIO.OUT)
@@ -41,10 +42,8 @@ def calc_Voltage():
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 
-def write_Data():
-	path = '/srv/NiMH_Data/voltage_data.txt' #os.system.join("srv","NiMH_Data", "voltage_data.txt") #get file path
-	v_datafile = open(path, "w") #open file to write
-	v_datafile.write(str(voltage)+"\n") #write voltages to data file
+def write_Data(v_datafile):
+	v_datafile.write(str(voltage)) #write voltages to data file
 
 #Send Email	
 def notification(time_elapsed):
@@ -68,7 +67,7 @@ def notification(time_elapsed):
 while True:
 	relayOn(RELAY1) #Turn on relay 1
 	calc_Voltage() #compute voltage, print it, send it to text file
-	write_Data() #write data to voltage_data.txt
+	write_Data(v_datafile) #write data to voltage_data.txt
 	print("Voltage: " + str(voltage)) #print out voltage to user
 	if voltage <= 10.0:
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
