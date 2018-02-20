@@ -56,7 +56,8 @@ def notification(time_elapsed):
 	msg['Subject'] = 'NiMH Charge Program Status' #subject of email
 	msg['From'] = email #sender's email address
 	msg['To'] = email #reciever email addr
-	msg.preamble = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec" #message of email
+	body = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec" #body text of email
+	msg.attach(body) #add body of email
 	fp = open(path, 'rb') #get voltage data file
 	txtFile = MIMEText(fp.read()) #read file
 	txtFile.add_header('Content-Disposition', 'attachment', filename="voltage_data.txt")
@@ -72,12 +73,12 @@ while True:
 	write_Data(v_datafile) #write data to voltage_data.txt
 	print("Voltage: " + str(voltage)) #print out voltage to user
 	if voltage <= 10.0:
+		v_datafile.close() #close voltage_data.txt must be done before calling notification()
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
 		time_elapsed = timeit.timeit() #keep track of time elapsed
 		print("Time Elapsed: " + str(time_elapsed)) 
 		notification(time_elapsed) #Send email notification
-		#v_datafile.close() #close data file
 		break
 	time.sleep(5) #take voltage reading every 5 minutes
 relayOff(RELAY1)
