@@ -1,4 +1,4 @@
-#Program that determines when NiMH batteries have reached 10V.
+#Program that determines when NiMH batteries have reached 10V. Sends email to nimh.charge@gmail.com when done.
 import time
 import Adafruit_BBIO.GPIO as GPIO
 import Adafruit_BBIO.ADC as ADC
@@ -54,7 +54,7 @@ def notification(time_elapsed):
 	#Message
 	msg = MIMEMultipart()
 	msg['Subject'] = 'NiMH Charge Program Status' #subject of email
-	msg['From'] = email #sender's email address
+	msg['From'] = email #sender's email addr
 	msg['To'] = email #reciever email addr
 	body = 'NiMH Charge Program Completed. Time Elapsed is ' + str(time_elapsed) + ' sec' #body text of email
 	#Send email
@@ -63,7 +63,7 @@ def notification(time_elapsed):
 	fp = open(path, 'rb') #get voltage data file
 	txtFile = MIMEText(fp.read()) #read file
 	txtFile.add_header('Content-Disposition', 'attachment', filename="voltage_data.txt")
-	msg.attach(txtFile) #attach file to email
+	msg.attach(txtFile) #attach data file to email
 	server.sendmail(email, email, msg.as_string()) #From, To, Body
 	server.quit()
 	
@@ -76,13 +76,12 @@ while True:
 	print("Voltage: " + str(voltage)) #print out voltage to user
 	if voltage <= 10.0:
 		v_datafile.close() #close voltage_data.txt must be done before calling notification()
-		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
+		relayOff(RELAY1) #Turn off relay 1
 		print("Relay OFF...Reached 10V")
 		time_elapsed = time.time() - start_time #time elapsed since start time was called (approx. when relay was turned on) 
 		print("Time Elapsed: " + str(time_elapsed)) 
 		notification(time_elapsed) #Send email notification
 		break
 	time.sleep(5) #take voltage reading every 5s
-relayOff(RELAY1)
+relayOff(RELAY1) #turn off relay 1
 exit() #exit program
-#GPIO.cleanup() #cleans up pins
