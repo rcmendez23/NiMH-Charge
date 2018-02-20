@@ -13,7 +13,6 @@ RELAY3 = "P9_13" #GPIO31
 ADC1 = "P9_33" #AIN4
 
 #variables
-global time_elapsed #run time of program, how long battery takes to get to 10V
 email = "nimh.charge@gmail.com" #email to send and recieve notification
 pwd = "bu0y$0Lar7"  
 path = '/srv/NiMH_Data/voltage_data.txt' #os.system.join("srv","NiMH_Data", "voltage_data.txt") #get file path
@@ -25,7 +24,6 @@ GPIO.setup(RELAY2, GPIO.OUT)
 GPIO.setup(RELAY3, GPIO.OUT)
 ADC.setup()
 
-#Functions
 #Turns relay of choice ON
 def relayOn(relay_num):
 	print("Relay1 ON")
@@ -42,9 +40,11 @@ def calc_Voltage():
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
 	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
 
+#Write voltage data to voltage_data.txt
 def write_Data(v_datafile):
 	v_datafile.write(str(voltage)) #write voltages to data file
 	v_datafile.write("\n") #write voltages to data file
+
 #Send Email	
 def notification(time_elapsed):
 	path = '/srv/NiMH_Data/voltage_data.txt' #path of data file
