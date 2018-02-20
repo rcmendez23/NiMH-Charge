@@ -56,7 +56,7 @@ def notification(time_elapsed):
 	msg['Subject'] = 'NiMH Charge Program Status' #subject of email
 	msg['From'] = email #sender's email address
 	msg['To'] = email #reciever email addr
-	body = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec" #body text of email
+	body = "NiMH Charge Program Completed. Time Elapsed is " #+ str(time_elapsed) + " sec" #body text of email
 	msg.attach(body) #add body of email
 	fp = open(path, 'rb') #get voltage data file
 	txtFile = MIMEText(fp.read()) #read file
@@ -80,7 +80,7 @@ while True:
 		print("Time Elapsed: " + str(time_elapsed)) 
 		notification(time_elapsed) #Send email notification
 		break
-	time.sleep(5) #take voltage reading every 5 minutes
+	time.sleep(5) #take voltage reading every 5s
 relayOff(RELAY1)
 exit() #exit program
 #GPIO.cleanup() #cleans up pins
