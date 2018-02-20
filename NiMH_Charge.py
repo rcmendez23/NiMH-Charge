@@ -59,7 +59,7 @@ def notification(time_elapsed):
 	msg.preamble = "NiMH Charge Program Completed. Time Elapsed is " + str(time_elapsed) + " sec" #message of email
 	fp = open(path, 'rb') #get voltage data file
 	txtFile = MIMEText(fp.read()) #read file
-	txtFile.add_header('Content-Disposition', 'attachment', filename=voltage_data.txt)
+	txtFile.add_header('Content-Disposition', 'attachment', filename="voltage_data.txt")
 	msg.attach(txtFile) #attach file to email
 	server.sendmail(email, email, msg.as_string()) #From, To, Body
 	server.quit()
