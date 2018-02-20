@@ -1,7 +1,6 @@
 #Program that determines when NiMH batteries have reached 10V.
 import Adafruit_BBIO.GPIO as GPIO
 import Adafruit_BBIO.ADC as ADC
-import timeit
 import time
 import smtplib #email
 from email.mime.text import MIMEText
@@ -79,7 +78,7 @@ while True:
 		v_datafile.close() #close voltage_data.txt must be done before calling notification()
 		relayOff(RELAY1) #Turn off relay 1 if the voltage goes down to 10V
 		print("Relay OFF...Reached 10V")
-		time_elapsed = timeit.timeit() #keep track of time elapsed
+		time_elapsed = time.time() #keep track of time elapsed
 		print("Time Elapsed: " + str(time_elapsed)) 
 		notification(time_elapsed) #Send email notification
 		break
