@@ -60,7 +60,7 @@ def notification(time_elapsed):
 	fp = open(path, 'rb') #get voltage data file
 	txtFile = MIMEText(fp.read()) #read file
 	msg.attach(txtFile) #attach file to email
-	server.sendmail(email, email, msg.as_string()) #From, To, Body
+	server.sendmail(email, email, msg) #From, To, Body
 	server.quit()
 	
 #----Main----#
