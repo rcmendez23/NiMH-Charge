@@ -38,7 +38,7 @@ def relayOff(relay_num):
 def calc_Voltage():
 	global voltage 
 	adc_data = ADC.read(ADC1) #get raw data from adc pin
-	voltage = (adc_data * 1.8*9)*(12.59/12.78) #convert to volts
+	voltage = (adc_data * 1.8*9)*(12.59/12.78) + .34 #convert to volts .34 is the experimentally determined differential in voltage from expected vs. experimental
 
 #Write voltage data to voltage_data.txt
 def write_Data(v_datafile):
