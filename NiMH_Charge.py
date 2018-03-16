@@ -31,7 +31,7 @@ def relayOn(relay_num):
 	
 #Turns relay of choice OFF
 def relayOff(relay_num):
-	print("Relay1 OFF")
+	print("Relay2 OFF")
 	GPIO.output(relay_num, GPIO.LOW) 
 
 #Calculate voltage
@@ -70,18 +70,18 @@ def notification(time_elapsed):
 #----Main----#
 start_time = time.time() #save (approximate) time since epoch that relay was turned on
 while True:
-	relayOn(RELAY1) #Turn on relay 1
+	relayOn(RELAY2) #Turn on relay 1
 	calc_Voltage() #compute voltage, print it, send it to text file
 	write_Data(v_datafile) #write data to voltage_data.txt
 	print("Voltage: " + str(voltage)) #print out voltage to user
 	if voltage <= 10.0:
 		v_datafile.close() #close voltage_data.txt must be done before calling notification()
-		relayOff(RELAY1) #Turn off relay 1
+		relayOff(RELAY2) #Turn off relay 1
 		print("Relay OFF...Reached 10V")
 		time_elapsed = time.time() - start_time #time elapsed since start time was called (approx. when relay was turned on) 
 		print("Time Elapsed: " + str(time_elapsed)) 
 		notification(time_elapsed) #Send email notification
 		break
 	time.sleep(5) #take voltage reading every 5s
-relayOff(RELAY1) #turn off relay 1
+relayOff(RELAY2) #turn off relay 1
 exit() #exit program
