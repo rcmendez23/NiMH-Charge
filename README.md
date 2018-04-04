@@ -23,12 +23,13 @@ In `/srv` execute `mkdir NiMH_Data`
 In `/sys/class/gpio` execute `ls`. This will show all the gpio pins exported. New BBBs do not have all gpio pins exported yet.
 
 `NiMH-Charge.py` uses the following GPIO Pins as denoted by the following lines of code:
-```
+
+`
 RELAY1 = "P9_17" #GPIO4
 RELAY2 = "P9_11" #GPIO30
 RELAY3 = "P9_13" #GPIO31
 ADC1 = "P9_33" #AIN4
-```
+`
 The variables in all-caps store strings that the Adafruit BBIO Library understands as a physical pin location on the BBB. Next to the hashtag (#) are comments stating the GPIO Pin number associated with that pin on the BBB. ADC1 is an analog to digital converter pin.
 For setting up the GPIO pin, we care only about the GPIO Pin number next to the hashtag (#). This is the BBBs identifier for each GPIO pin. You could pick any GPIO pin on your BBB as long as you change the above lines of code.
 
