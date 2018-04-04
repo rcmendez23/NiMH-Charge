@@ -33,8 +33,13 @@ The variables in all-caps store strings that the Adafruit BBIO Library understan
 For setting up the GPIO pin, we care only about the GPIO Pin number next to the hashtag (#). This is the BBBs identifier for each GPIO pin. You could pick any GPIO pin on your BBB as long as you change the above lines of code.
 
 We will activate `GPIO4` which is `RELAY1`. You only need one relay for this program.
+
 Navigate to the specific gpio folder of the gpio pin we want to activate. 
+
 In `/sys/class/gpio` execute `cd gpio4`
+
 In `/sys/class/gpio/gpio4` execute `echo 4 > export`
+
 Go back to `/sys/class/gpio` by executing `cd ..`
+
 In `/sys/class/gpio` execute `ls` to confirm that `gpio4` is now on the list.
