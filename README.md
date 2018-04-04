@@ -20,6 +20,9 @@ In `/srv` execute mkdir git
 ### 6. Clone the `NiMH-Charge.git` repository into `/srv/git`
 ### 7. Set up GPIO Pins on BBB
 In `/sys/class/gpio` execute `ls`. This will show all the gpio pins exported. New BBBs do not have all gpio pins exported yet.
+Navigate to the specific gpio folder of the gpio pin we want to activate.
+The program uses the following GPIO Pins:
+
 In `/sys/class/gpio` execute `echo 4 > export`
 In `/sys/class/gpio` execute `ls` to confirm that `gpio4` is now on the list.
 
