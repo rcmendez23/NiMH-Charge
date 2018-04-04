@@ -21,7 +21,16 @@ In `/srv` execute mkdir git
 ### 7. Set up GPIO Pins on BBB
 In `/sys/class/gpio` execute `ls`. This will show all the gpio pins exported. New BBBs do not have all gpio pins exported yet.
 Navigate to the specific gpio folder of the gpio pin we want to activate.
-The program uses the following GPIO Pins:
+The program uses the following GPIO Pins as denoted by `NiMH-Charge.py`:
+```
+PIN12 = "P9_12" #GPIO60
+RELAY1 = "P9_17" #GPIO4
+RELAY2 = "P9_11" #GPIO30
+RELAY3 = "P9_13" #GPIO31
+ADC1 = "P9_33" #AIN4
+```
+The variables in all-caps store strings that the Adafruit BBB GPIO Library understands as a physical pin location on the BBB. Next to the '#' are comments stating the GPIO Pin number associated with that pin on the BBB. ADC1 is an analog to digital converter pin.
+For setting up the GPIO pin, we care only about the GPIO Pin number next to the hashtag (#). You can pick any GPIO pin on your BBB as long as you change the above lines of code.
 
 In `/sys/class/gpio` execute `echo 4 > export`
 In `/sys/class/gpio` execute `ls` to confirm that `gpio4` is now on the list.
